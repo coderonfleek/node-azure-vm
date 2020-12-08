@@ -47,4 +47,4 @@ workflows:
             - build # only deploy once build job has completed
           filters:
             branches:
-              only: master # only deploy on the master branch
+              only: main # only deploy on the main branch
