@@ -27,7 +27,5 @@ runcmd:
   - git clone "https://github.com/coderonfleek/node-azure-vm" myapp
   # Install pm2
   - 'sudo npm install pm2 -g'
-  # Start app
-  # - 'cd myapp && npm install && npm start'
   # restart NGINX
   - service nginx restart
