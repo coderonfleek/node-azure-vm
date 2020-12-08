@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "stop": "pm2 kill",
-    "start": "pm2 start server.js && service nginx restart",
+    "start": "pm2 start server.js",
     "dev": "node server.js"
   },
   "author": "",
