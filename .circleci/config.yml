@@ -1,0 +1,50 @@
+version: 2.1
+jobs:
+  build:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:10.16.3
+    steps:
+      - checkout
+      - run:
+          name: Update NPM
+          command: "sudo npm install -g npm@5"
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Run tests
+          command: npm run test
+
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "a2:33:41:e8:eb:c1:ea:12:d9:8a:50:c6:b8:f0:fe:05"
+      - run:
+          name: Copy updated files to VM
+          command: GLOBIGNORE='node_modules' scp -o StrictHostKeyChecking=no -r ./* azureuser@40.114.10.203://home/azureuser/myapp
+      - run:
+          name: Deploy Over SSH
+          command: |
+            ssh azureuser@40.114.10.203 "cd myapp && sudo npm run-script stop && sudo npm start"
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+      - deploy:
+          requires:
+            - build # only deploy once build job has completed
+          filters:
+            branches:
+              only: master # only deploy on the master branch
