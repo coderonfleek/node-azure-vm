@@ -11,7 +11,7 @@ jobs:
             - "a2:33:41:e8:eb:c1:ea:12:d9:8a:50:c6:b8:f0:fe:05"
       - run:
           name: Copy updated files to VM
-          command: sudo scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -r ./* azureuser@40.114.10.203:~/myapp
+          command: scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -r ./* azureuser@40.114.10.203:~/myapp
 
   deploy:
     machine:
