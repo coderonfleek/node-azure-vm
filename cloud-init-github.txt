@@ -28,6 +28,6 @@ runcmd:
   # Install pm2
   - 'sudo npm install pm2 -g'
   # Start app
-  - 'cd myapp && npm install && npm start'
+  # - 'cd myapp && npm install && npm start'
   # restart NGINX
   - service nginx restart
