@@ -8,10 +8,10 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - "a2:33:41:e8:eb:c1:ea:12:d9:8a:50:c6:b8:f0:fe:05"
+            - "70:a5:b6:95:53:c0:69:ca:b5:cd:68:6d:cf:3e:6f:dc"
       - run:
           name: Copy updated files to VM
-          command: scp -o StrictHostKeyChecking=no -r ./* azureuser@40.114.10.203:~/myapp
+          command: scp -o StrictHostKeyChecking=no -r ./* azureuser@40.85.160.101:~/myapp
 
   deploy:
     machine:
@@ -20,7 +20,7 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            ssh azureuser@40.114.10.203 "cd myapp && sudo npm run-script stop && npm install && sudo npm start"
+            ssh azureuser@40.85.160.101 "cd myapp && sudo npm run-script stop && npm install && sudo npm start"
 
 workflows:
   version: 2
